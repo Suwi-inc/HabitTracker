@@ -1,16 +1,16 @@
 ﻿using System.Data.SQLite;
 using System.Reflection.PortableExecutable;
 
- string connectString = @"Data Source=:memory:";
+ string connectString = @"Data Source=mytestfile.sqlite;version = 3;";
+//SQLiteConnection.CreateFile("mytestfile.sqlite");
+
 
 SQLiteConnection _habitConnection = new SQLiteConnection(connectString);
 
-_habitConnection.Open();
 
 CreateTable(_habitConnection);
 
 Menu(_habitConnection);
-
 
 
 static void Menu(SQLiteConnection _habitConnection)
@@ -24,15 +24,9 @@ static void Menu(SQLiteConnection _habitConnection)
         Console.WriteLine("3 : Edit a Habit ");
         Console.WriteLine("4 : Show all Habits");
         Console.WriteLine("0 : Exit");
-        try
-        {
-            choice = int.Parse(Console.ReadLine());
-        }
-        catch (InvalidCastException)
-        {
-            Console.WriteLine("You entered an invalid value");
-        }
-
+        
+        choice = int.Parse(Console.ReadLine());
+       
         switch(choice)
         {
             case 1: {
@@ -56,8 +50,10 @@ static void Menu(SQLiteConnection _habitConnection)
 }
 static void CreateTable( SQLiteConnection _habitConnection)
 {
-    
-    string createCommandString = "Create table Habit (name varchar(50), quantity INT)";
+   
+    _habitConnection.Open();
+
+    string createCommandString = "Create table if not exists Habit (name varchar(50), quantity INT)";
 
     SQLiteCommand createCommand = new SQLiteCommand(createCommandString, _habitConnection);
 
@@ -95,7 +91,6 @@ static void InsertHabit(SQLiteConnection _habitConnection)
 
 
     }
-
 
 }
 static void RemoveHabit(SQLiteConnection _habitConnection)

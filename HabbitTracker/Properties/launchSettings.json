@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "HabbitTracker": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\suwil\\Desktop\\Personal Projects\\The C# Academy\\HabbitTracker\\HabitTrack"
+    }
+  }
+}
